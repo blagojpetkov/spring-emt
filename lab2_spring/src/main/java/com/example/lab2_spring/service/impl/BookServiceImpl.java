@@ -68,6 +68,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> markBook(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(RuntimeException::new);
+        if(book.getAvailableCopies()>0)
         book.setAvailableCopies(book.getAvailableCopies()-1);
         return Optional.of(bookRepository.save(book));
     }
